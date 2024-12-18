@@ -52,7 +52,8 @@ class InsertPostResponse(BaseModel):
     title: str
     content: str
     author_id: str
-
+    created_at: str
+    updated_at: str
 
 
 @app.post("/insert_post", response_model=InsertPostResponse)
