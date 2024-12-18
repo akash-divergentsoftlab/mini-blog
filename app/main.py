@@ -7,6 +7,7 @@ import httpx
 
 app = FastAPI()
 NHOST_GRAPHQL_URL = "https://cpvalekhjrcimaqjmszy.hasura.ap-south-1.nhost.run/v1/graphql"
+
 ADMIN_SECRET = ":BnVkUT*tM+7KTAi274cLGuJtBbNgTvx"
 
 
@@ -52,8 +53,6 @@ class InsertPostResponse(BaseModel):
     title: str
     content: str
     author_id: str
-    created_at: str
-    updated_at: str
 
 
 @app.post("/insert_post", response_model=InsertPostResponse)
@@ -188,13 +187,6 @@ async def update_post(request: UpdatePostRequest):
             # Handle unexpected errors
             raise HTTPException(status_code=500, detail=str(e))
 
-from fastapi import FastAPI, Depends, HTTPException
-from pydantic import BaseModel
-import httpx
-
-app = FastAPI()
-NHOST_GRAPHQL_URL = "https://cpvalekhjrcimaqjmszy.hasura.ap-south-1.nhost.run/v1/graphql"
-ADMIN_SECRET = ":BnVkUT*tM+7KTAi274cLGuJtBbNgTvx"
 
 # Pydantic Model for Update Post Request
 class UpdatePostRequest(BaseModel):
@@ -255,7 +247,14 @@ async def update_post(request: UpdatePostRequest):
                 )
 
             # Extract the updated post data
-            data = response.json()["data"]["update_Posts_by_pk"]
+            data = response.json()["data"].get("update_Posts_by_pk")
+
+            # Check if the post exists
+            if data is None:
+                raise HTTPException(
+                    status_code=404,
+                    detail=f"Post with ID {request.id} does not exist."
+                )
 
             # Return the response
             return UpdatePostResponse(
@@ -265,9 +264,15 @@ async def update_post(request: UpdatePostRequest):
                 author_id=data["author_id"]
             )
 
+        except KeyError as e:
+            raise HTTPException(
+                status_code=400,
+                detail="Cannot update the 'id' field."
+            )
         except Exception as e:
             # Handle unexpected errors
             raise HTTPException(status_code=500, detail=str(e))
+
 
 # Pydantic Model for Delete Post Request
 class DeletePostRequest(BaseModel):
@@ -323,6 +328,13 @@ async def delete_post(request: DeletePostRequest):
             # Extract the deleted post data
             data = response.json()["data"]["delete_Posts_by_pk"]
 
+            # Check if the post exists
+            if data is None:
+                raise HTTPException(
+                    status_code=404,
+                    detail=f"Post with ID {request.id} does not exist."
+                )
+
             # Return the response
             return DeletePostResponse(
                 id=data["id"],
@@ -347,6 +359,7 @@ class GetPostByIdResponse(BaseModel):
     title: str
     content: str
     author_id: str
+
 
 @app.get("/get_post_by_id", response_model=GetPostByIdResponse)
 async def get_post_by_id(request: GetPostByIdRequest):
@@ -389,7 +402,14 @@ async def get_post_by_id(request: GetPostByIdRequest):
                 )
 
             # Extract the retrieved post data
-            data = response.json()["data"]["Posts_by_pk"]
+            data = response.json()["data"].get("Posts_by_pk")
+
+            # Check if the post exists
+            if data is None:
+                raise HTTPException(
+                    status_code=404,
+                    detail=f"Post with ID {request.id} does not exist."
+                )
 
             # Return the response
             return GetPostByIdResponse(
