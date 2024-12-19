@@ -3,7 +3,6 @@ import Home from '@/components/routes/app/home'
 import Layout from '@/components/routes/app/layout'
 import Profile from '@/components/routes/app/profile'
 import Storage from '@/components/routes/app/storage'
-import Payment from '@/components/routes/app/Payment'
 import ForgotPassword from '@/components/routes/auth/forgot-password'
 import SignIn from '@/components/routes/auth/sign-in/sign-in'
 import SignInEmailPassword from '@/components/routes/auth/sign-in/sign-in-email-password'
@@ -15,6 +14,7 @@ import SignUpMagicLink from '@/components/routes/auth/sign-up/sign-up-magic-link
 import SignUpSecurityKey from '@/components/routes/auth/sign-up/sign-up-security-key'
 import { Route, Routes } from 'react-router-dom'
 import Todos from './components/routes/app/todos'
+import UserPayment from '@/components/routes/app/UserPayment'
 
 function App() {
   return (
@@ -31,7 +31,7 @@ function App() {
         <Route path="/todo" element={<Todos />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/storage" element={<Storage />} />
-        <Route path="/payment" element={<Payment />} />
+        <Route path="/user-payment" element={<UserPayment/>} />
       </Route>
 
       <Route path="/sign-in">

@@ -62,7 +62,7 @@ export default function Layout() {
           <Tooltip>
             <TooltipTrigger asChild>
               <NavLink
-                to="/payment"
+                to="/user-payment"
                 className="flex items-center justify-center transition-colors rounded-lg h-9 w-9 text-muted-foreground hover:text-foreground md:h-8 md:w-8 aria-[current]:bg-accent aria-[current]:text-accent-foreground"
               >
                 <CircleDollarSign className="w-5 h-5" />
