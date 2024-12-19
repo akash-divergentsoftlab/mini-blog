@@ -15,7 +15,6 @@ import SignUpMagicLink from '@/components/routes/auth/sign-up/sign-up-magic-link
 import SignUpSecurityKey from '@/components/routes/auth/sign-up/sign-up-security-key'
 import { Route, Routes } from 'react-router-dom'
 import Todos from './components/routes/app/todos'
-import Payment from './components/routes/app/Payment'
 
 function App() {
   return (
