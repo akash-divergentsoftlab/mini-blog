@@ -14,6 +14,7 @@ import SignUpMagicLink from '@/components/routes/auth/sign-up/sign-up-magic-link
 import SignUpSecurityKey from '@/components/routes/auth/sign-up/sign-up-security-key'
 import { Route, Routes } from 'react-router-dom'
 import Todos from './components/routes/app/todos'
+import Payment from './components/routes/app/Payment'
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         }
       >
         <Route path="/" element={<Home />} />
+        <Route path="/payment" element={<Payment />} />
         <Route path="/todo" element={<Todos />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/storage" element={<Storage />} />
