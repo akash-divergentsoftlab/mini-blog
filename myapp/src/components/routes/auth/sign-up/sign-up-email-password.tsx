@@ -5,6 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
+import { gql, useMutation } from '@apollo/client'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useSignUpEmailPassword } from '@nhost/react'
 import { ArrowLeft } from 'lucide-react'
@@ -35,6 +36,38 @@ export default function SignUpEmailPassword() {
       password: ''
     }
   })
+
+  const [addUser] = useMutation<{
+      insert_Posts_one?: {
+        id: string
+        title: string
+        content: string
+        author_id: string
+      }
+    }>(gql`
+      mutation InsertPost(
+        $title: String!
+        $content: String!
+        $author_id: uuid!
+        $created_at: timestamptz!
+        $updated_at: timestamptz!
+      ) {
+        insert_Posts_one(
+          object: {
+            title: $title
+            content: $content
+            author_id: $author_id
+            created_at: $created_at
+            updated_at: $updated_at
+          }
+        ) {
+          id
+          title
+          content
+          author_id
+        }
+      }
+    `)
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const { firstName, lastName, email, password } = values
