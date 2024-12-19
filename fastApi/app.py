@@ -4,11 +4,23 @@ import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from fastapi.middleware.cors import CORSMiddleware
+
 
 app = FastAPI()
 
 templates = Jinja2Templates(directory="templates")
 app.mount("/static", StaticFiles(directory="static"), name="static")
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # Replace with your frontend URL
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 # stripe.api_key = os.environ["STRIPE_KEY"]
 
@@ -31,7 +43,7 @@ async def cancel(request: Request):
 async def create_checkout_session(request: Request):
     data = await request.json()
     checkout_session = stripe.checkout.Session.create(
-        success_url="http://localhost:8000/success?session_id={CHECKOUT_SESSION_ID}",
+        success_url="http://localhost:3000/payment?session_id={CHECKOUT_SESSION_ID}",
         cancel_url="http://localhost:8000/cancel",
         payment_method_types=["card"],
         mode="subscription",
