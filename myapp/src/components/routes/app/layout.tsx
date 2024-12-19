@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { useSignOut } from '@nhost/react'
-import { Archive, LogOut, PanelLeft, User } from 'lucide-react'
+import { Archive, CircleDollarSign, LogOut, PanelLeft, User } from 'lucide-react'
 import { useState } from 'react'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 
@@ -58,6 +58,18 @@ export default function Layout() {
               </NavLink>
             </TooltipTrigger>
             <TooltipContent side="right">Storage</TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <NavLink
+                to="/payment"
+                className="flex items-center justify-center transition-colors rounded-lg h-9 w-9 text-muted-foreground hover:text-foreground md:h-8 md:w-8 aria-[current]:bg-accent aria-[current]:text-accent-foreground"
+              >
+                <CircleDollarSign className="w-5 h-5" />
+                <span className="sr-only">Payment</span>
+              </NavLink>
+            </TooltipTrigger>
+            <TooltipContent side="right">Payment</TooltipContent>
           </Tooltip>
 
           <Tooltip>

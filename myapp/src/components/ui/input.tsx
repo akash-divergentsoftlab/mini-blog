@@ -14,7 +14,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     }
 
     return type === "password" ? (
-      <div className="relative flex items-center">
+      <div className="relative w-full">
         <input
           type={isPasswordVisible ? "text" : "password"} // Toggle between text and password
           className={cn(

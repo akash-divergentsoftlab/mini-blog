@@ -3,6 +3,7 @@ import Home from '@/components/routes/app/home'
 import Layout from '@/components/routes/app/layout'
 import Profile from '@/components/routes/app/profile'
 import Storage from '@/components/routes/app/storage'
+import Payment from '@/components/routes/app/Payment'
 import ForgotPassword from '@/components/routes/auth/forgot-password'
 import SignIn from '@/components/routes/auth/sign-in/sign-in'
 import SignInEmailPassword from '@/components/routes/auth/sign-in/sign-in-email-password'
@@ -30,6 +31,7 @@ function App() {
         <Route path="/todo" element={<Todos />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/storage" element={<Storage />} />
+        <Route path="/payment" element={<Payment />} />
       </Route>
 
       <Route path="/sign-in">
