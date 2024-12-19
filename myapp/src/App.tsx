@@ -28,6 +28,7 @@ function App() {
         }
       >
         <Route path="/" element={<Home />} />
+        <Route path="/payment" element={<Payment />} />
         <Route path="/todo" element={<Todos />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/storage" element={<Storage />} />
