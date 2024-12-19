@@ -26,6 +26,8 @@ export default function Todos() {
   `)
   const [contents, setContents] = useState('')
   const [title, setTitle] = useState('')
+  const [editContents, setEditContents] = useState('')
+  const [editTitle, setEditTitle] = useState('')
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [fromDate, setFromDate] = useState<string>('')
   const [toDate, setToDate] = useState<string>('')
@@ -148,13 +150,13 @@ export default function Todos() {
 
   const handleEditPost = async () => {
     await updatePost({
-      variables: { id: selectedObj?.id, title: title, content: contents },
+      variables: { id: selectedObj?.id, title: editTitle, content: editContents },
       onCompleted: async () => {
         await refetchTodos()
         toast.success('Post edited successfully!')
         setIsModalOpen(false)
-        setTitle("")
-        setContents("")
+        setEditTitle("")
+        setEditContents("")
       },
       onError: (error) => {
         toast.error(error.message ? "You are not allowed to edit this post" : "")
@@ -164,15 +166,15 @@ export default function Todos() {
 
   const handleEditPostModal = (post: { id: string; title: string; content: string }) => {
     setSelectedObj(post)
-    setTitle(post.title)
-    setContents(post.content)
+    setEditTitle(post.title)
+    setEditContents(post.content)
     setIsModalOpen(true)
   }
 
   const handleEditCancel = () => {
     setIsModalOpen(false)
-    setTitle("")
-    setContents("")
+    setEditTitle("")
+    setEditContents("")
   }
 
   // const handleDateFilter = () => {
@@ -289,14 +291,14 @@ export default function Todos() {
             <h3 className="text-lg font-semibold mb-4">Edit Post</h3>
             <Input
               placeholder="Title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              value={editTitle}
+              onChange={(e) => setEditTitle(e.target.value)}
               className="mb-4"
             />
             <Input
               placeholder="Content"
-              value={contents}
-              onChange={(e) => setContents(e.target.value)}
+              value={editContents}
+              onChange={(e) => setEditContents(e.target.value)}
               className="mb-4"
             />
             <div className="flex justify-end gap-2">
